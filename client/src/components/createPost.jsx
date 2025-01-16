@@ -8,7 +8,7 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8800/api/posts", {
+      await axios.post(`${import.meta.env.BACKEND_BASEURL}/api/posts`, {
         content,
         user_name: userName,
       });

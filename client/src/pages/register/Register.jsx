@@ -74,7 +74,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8800/api/auth/register",
+        `${import.meta.env.BACKEND_BASEURL}/api/auth/register`,
         inputs,
         {
           headers: {
