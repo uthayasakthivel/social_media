@@ -10,11 +10,13 @@ const PORT = process.env.PORT || 5000;
 //middlewar
 app.use(
   cors({
-    origin: "https://social-media-oh24.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: "https://social-media-oh24.vercel.app", // Frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Include OPTIONS
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"], // Adjust if needed
   })
 );
+app.options("*", cors());
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
