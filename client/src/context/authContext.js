@@ -17,7 +17,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const login = async (inputs) => {
     const response = await axios.post(
-      "https://your-backend-url.onrender.com/api/auth/login",
+      "https://social-media-2-gl7k.onrender.com/api/auth/login",
       inputs
     );
     setCurrentUser(response.data.user); // Store user data in state

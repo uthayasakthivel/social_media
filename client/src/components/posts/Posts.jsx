@@ -34,7 +34,7 @@ const Posts = () => {
   const fetchPosts = async () => {
     try {
       const postsResponse = await axios.get(
-        `https://your-backend-url.onrender.com/api/posts`
+        `https://social-media-2-gl7k.onrender.com/api/posts`
       );
       setPosts(postsResponse.data);
     } catch (error) {
@@ -45,7 +45,7 @@ const Posts = () => {
   // const fetchLikedPosts = async () => {
   //   try {
   //     const likedPostsResponse = await axios.get(
-  //       `https://your-backend-url.onrender.com/api/likes/${username}`
+  //       `https://social-media-2-gl7k.onrender.com/api/likes/${username}`
   //     );
   //     const likedPostIds = likedPostsResponse.data.map((like) => like.post_id);
   //     setLikedPosts(likedPostIds);
@@ -61,7 +61,7 @@ const Posts = () => {
         try {
           const commentsPromises = posts.map((post) =>
             axios.get(
-              `https://your-backend-url.onrender.com/api/comments/${post.id}`
+              `https://social-media-2-gl7k.onrender.com/api/comments/${post.id}`
             )
           );
           const commentsResponses = await Promise.all(commentsPromises);
@@ -82,7 +82,7 @@ const Posts = () => {
   const handleCreatePost = () => {
     if (content) {
       axios
-        .post(`https://your-backend-url.onrender.com/api/posts`, {
+        .post(`https://social-media-2-gl7k.onrender.com/api/posts`, {
           content,
           user_name: username,
         })
@@ -97,7 +97,7 @@ const Posts = () => {
   // Handle liking a post
   const handleLike = (postId) => {
     axios
-      .post(`https://your-backend-url.onrender.com/api/likes/like`, {
+      .post(`https://social-media-2-gl7k.onrender.com/api/likes/like`, {
         postId,
         userName: username,
       })
@@ -119,7 +119,7 @@ const Posts = () => {
     // Check if the post has been liked by the user
     // Send API request to unlike the post
     axios
-      .post(`https://your-backend-url.onrender.com/api/likes/unlike`, {
+      .post(`https://social-media-2-gl7k.onrender.com/api/likes/unlike`, {
         postId,
         userName: username,
       })
@@ -145,7 +145,7 @@ const Posts = () => {
   const handleAddComment = (postId) => {
     if (newComment[postId]) {
       axios
-        .post(`https://your-backend-url.onrender.com/api/comments`, {
+        .post(`https://social-media-2-gl7k.onrender.com/api/comments`, {
           content: newComment[postId],
           post_id: postId,
           user_name: username,

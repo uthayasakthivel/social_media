@@ -8,7 +8,7 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`https://your-backend-url.onrender.com/api/posts`, {
+      await axios.post(`https://social-media-2-gl7k.onrender.com/api/posts`, {
         content,
         user_name: userName,
       });

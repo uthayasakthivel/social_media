@@ -74,7 +74,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `https://your-backend-url.onrender.com/api/auth/register`,
+        `https://social-media-2-gl7k.onrender.com/api/auth/register`,
         inputs,
         {
           headers: {
