@@ -29,6 +29,8 @@ const Register = () => {
     name: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setInputs((prevValues) => ({
       ...prevValues,
@@ -83,7 +85,9 @@ const Register = () => {
         }
       );
 
-      toast.success("Registration successful!");
+      toast.success("Registration successful! Redirect to login !");
+      localStorage.setItem("userToken", response.data.token);
+      navigate("/");
       console.log("User Registered: ", response.data);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.mssg) {
