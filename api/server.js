@@ -6,7 +6,7 @@ import likeRoutes from "./routes/likes.js";
 import postRoutes from "./routes/posts.js";
 import cors from "cors";
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 //middlewar
 app.use(cors());
 app.use(express.json());
@@ -17,6 +17,6 @@ app.use("/api/likes", likeRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/auth", authRoutes);
 
-app.listen(8800, () => {
-  console.log("Api working fine!");
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
