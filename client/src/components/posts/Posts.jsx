@@ -18,37 +18,39 @@ const Posts = () => {
   const [content, setContent] = useState(""); // Define content state
   const [newComment, setNewComment] = useState({});
   const [comments, setComments] = useState({}); // Store comments for each post by id
-  const { username } = JSON.parse(localStorage.getItem("user"));
+  // const { username } = JSON.parse(localStorage.getItem("user"));
   const [likedPosts, setLikedPosts] = useState([]);
+
+  const storedUser = localStorage.getItem("user");
+  const user = storedUser ? JSON.parse(storedUser) : null;
+  const username = user?.username || null;
 
   // Fetch all posts and liked posts for the current user
   useEffect(() => {
     fetchPosts();
-    fetchLikedPosts();
+    // fetchLikedPosts();
   }, [username]); // Only fetch posts and liked posts when the username changes
 
   const fetchPosts = async () => {
     try {
-      const postsResponse = await axios.get(
-        `${import.meta.env.BACKEND_BASEURL}/api/posts`
-      );
+      const postsResponse = await axios.get(`http://localhost:8800/api/posts`);
       setPosts(postsResponse.data);
     } catch (error) {
       console.log("Error fetching posts:", error);
     }
   };
 
-  const fetchLikedPosts = async () => {
-    try {
-      const likedPostsResponse = await axios.get(
-        `${import.meta.env.BACKEND_BASEURL}/api/likes/${username}`
-      );
-      const likedPostIds = likedPostsResponse.data.map((like) => like.post_id);
-      setLikedPosts(likedPostIds);
-    } catch (error) {
-      console.log("Error fetching liked posts:", error);
-    }
-  };
+  // const fetchLikedPosts = async () => {
+  //   try {
+  //     const likedPostsResponse = await axios.get(
+  //       `http://localhost:8800/api/likes/${username}`
+  //     );
+  //     const likedPostIds = likedPostsResponse.data.map((like) => like.post_id);
+  //     setLikedPosts(likedPostIds);
+  //   } catch (error) {
+  //     console.log("Error fetching liked posts:", error);
+  //   }
+  // };
 
   // Fetch comments for posts
   useEffect(() => {
@@ -56,9 +58,7 @@ const Posts = () => {
       const fetchComments = async () => {
         try {
           const commentsPromises = posts.map((post) =>
-            axios.get(
-              `${import.meta.env.BACKEND_BASEURL}/api/comments/${post.id}`
-            )
+            axios.get(`http://localhost:8800/api/comments/${post.id}`)
           );
           const commentsResponses = await Promise.all(commentsPromises);
           const commentsData = {};
@@ -78,7 +78,7 @@ const Posts = () => {
   const handleCreatePost = () => {
     if (content) {
       axios
-        .post(`${import.meta.env.BACKEND_BASEURL}/api/posts`, {
+        .post(`http://localhost:8800/api/posts`, {
           content,
           user_name: username,
         })
@@ -93,7 +93,7 @@ const Posts = () => {
   // Handle liking a post
   const handleLike = (postId) => {
     axios
-      .post(`${import.meta.env.BACKEND_BASEURL}/api/likes/like`, {
+      .post(`http://localhost:8800/api/likes/like`, {
         postId,
         userName: username,
       })
@@ -115,7 +115,7 @@ const Posts = () => {
     // Check if the post has been liked by the user
     // Send API request to unlike the post
     axios
-      .post(`${import.meta.env.BACKEND_BASEURL}/api/likes/unlike`, {
+      .post(`http://localhost:8800/api/likes/unlike`, {
         postId,
         userName: username,
       })
@@ -141,7 +141,7 @@ const Posts = () => {
   const handleAddComment = (postId) => {
     if (newComment[postId]) {
       axios
-        .post(`${import.meta.env.BACKEND_BASEURL}/api/comments`, {
+        .post(`http://localhost:8800/api/comments`, {
           content: newComment[postId],
           post_id: postId,
           user_name: username,
