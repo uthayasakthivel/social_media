@@ -74,7 +74,7 @@ const Register = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8800/api/auth/register`,
+        `https://your-backend-url.onrender.com/api/auth/register`,
         inputs,
         {
           headers: {
